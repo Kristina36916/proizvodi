@@ -19,7 +19,9 @@ class CreateProizvodsTable extends Migration
             $table->string('opis');
             $table->string('cena');
             $table->string('garancija');
+            $table->foreignId('kategorija');
             $table->timestamps();
+            
         });
     }
 
