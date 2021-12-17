@@ -15,9 +15,9 @@ class CreatePrezentacijasTable extends Migration
     {
         Schema::create('prezentacijas', function (Blueprint $table) {
             $table->id();
-            $table->string('naziv');
-            $table->string('mesto');
-            $table->string('trajanje');
+            $table->string('naziv')->unique();
+            $table->string('mesto')->unique();
+            $table->string('trajanje')->unique();
             $table->timestamps();
         });
     }
