@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function proizvod(){
+        return $this->hasMany(Proizvod::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

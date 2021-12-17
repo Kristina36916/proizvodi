@@ -14,4 +14,8 @@ class Prezentacija extends Model
         'trajanje',
 
     ];
+    public function kategorija(){
+        return $this->belongsTo(Kategorija::class);
+    }
+
 }
