@@ -18,8 +18,10 @@ class CreateProizvodsTable extends Migration
             $table->string('naziv');
             $table->string('opis');
             $table->string('cena');
-            $table->string('garancija');
-            $table->foreignId('kategorija');
+            $table->string('rok');
+            $table->string('url');
+            $table->foreignId('user_id')->default();
+            $table->foreignId('kategorija_id');
             $table->timestamps();
             
         });

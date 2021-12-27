@@ -17,7 +17,8 @@ class CreateKategorijasTable extends Migration
             $table->id();
             $table->string('naziv')->unique();
             $table->string('opis')->unique();
-            $table->foreignId('prezentacija')->default();
+            $table->string('url');
+            $table->foreignId('prezentacija_id');
             $table->timestamps();
         });
     }

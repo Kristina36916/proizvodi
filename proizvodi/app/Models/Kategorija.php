@@ -12,6 +12,7 @@ class Kategorija extends Model
     protected $fillable=[
         'naziv',
         'opis',
+        'url',
     ];
 
     public function proizvodi()

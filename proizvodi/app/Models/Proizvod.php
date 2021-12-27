@@ -13,13 +13,14 @@ class Proizvod extends Model
         'naziv',
         'opis',
         'cena',
-        'garancija',
+        'rok',
+        'url',
 
     ];
     public function kategorija(){
-        return $this->belongsTo(Kategorija::class);
+        return $this->belongsTo(Kategorija::class,);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }
