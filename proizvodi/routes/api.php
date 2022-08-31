@@ -18,10 +18,13 @@ use App\Http\Controllers\ProizvodController;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
 
+Route::get('/proizvodi', [ProizvodController::class, 'index'])->name('proizvodi');
+Route::get('/proizvodi/{id}', [ProizvodController::class, 'show']);
 
+Route::post('/dodaj',[PrezentacijaController::class,'dodajPrezentaciju']);
+Route::get('/prezentacije',[PrezentacijaController::class,'listaPrezentacija']);
+Route::delete('/obrisi/{id}',[PrezentacijaController::class,'obrisiPrezentaciju']);
+Route::put('/prezentacija/{id}',[PrezentacijaController::class,'izmena']);
 
-
+Route::get('/kategorije', [KategorijaController::class, 'index'])->name('kategorije');

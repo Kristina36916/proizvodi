@@ -19,6 +19,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/proizvodi', [ProizvodController::class, 'index']);
-Route::get('/proizvodi/{id}', [ProizvodController::class, 'show']);
-Route::post('/create/{id}', [ProizvodController::class, 'create']);

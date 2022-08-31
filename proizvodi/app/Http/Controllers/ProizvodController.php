@@ -48,9 +48,9 @@ class ProizvodController extends Controller
      * @param  \App\Models\Proizvod  $proizvod
      * @return \Illuminate\Http\Response
      */
-    public function show($proizvod_id)
+    public function show($id)
     {
-        $proizvod= Proizvod::find($proizvod_id);
+        $proizvod= Proizvod::find($id);
         if(is_null($proizvod)){
             return response()->json('Data not found ',404);
         }

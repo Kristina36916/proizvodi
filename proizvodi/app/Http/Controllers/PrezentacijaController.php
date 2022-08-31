@@ -12,74 +12,42 @@ class PrezentacijaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    public function dodajPrezentaciju(Request $req){
+        $prezentacija=new Prezentacija;
+        $prezentacija->naziv=$req->input('naziv');
+        $prezentacija->mesto=$req->input('mesto');
+        $prezentacija->vreme=$req->input('vreme');
+        $prezentacija->save();
+        return response()->json($prezentacija);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
+    function listaPrezentacija(){
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Prezentacija  $prezentacija
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Prezentacija $prezentacija)
-    {
-        //
+        return Prezentacija::all();
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Prezentacija  $prezentacija
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Prezentacija $prezentacija)
-    {
-        //
+    function obrisiPrezentaciju($id){
+        $result=Prezentacija::where('id',$id)->delete();
+        if($result){
+            return ["Uspesno obrisana prezentacija."];
+        }else{
+            return ["Greska prilikom brisanja."];
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Prezentacija  $prezentacija
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Prezentacija $prezentacija)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Prezentacija  $prezentacija
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Prezentacija $prezentacija)
-    {
-        //
-    }
+    
+     public function izmena(Request $request, Prezentacija  $prezentacija)
+     {
+        $input=$request->all();
+            $validator=Validator::make($input,['naziv','opis',]);
+    
+        if($validator->fails()){
+            return 'Greska.';
+        }else{
+            $prezentacija->naziv=$input['naziv'];
+            $prezentacija->mesto=$input['mesto'];
+            $prezentacija->vreme=$req->input('vreme');
+            $prezentacija->save();
+            }
+        return $this->sendResponse(new Prezentacija($prezentacija,'Izmena prezentacije uspesna.'));
+     }
 }

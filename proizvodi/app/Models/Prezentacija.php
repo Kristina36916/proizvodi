@@ -11,7 +11,7 @@ class Prezentacija extends Model
     protected $fillable=[
         'naziv',
         'mesto',
-        'trajanje',
+        'vreme',
         'url',
 
     ];
