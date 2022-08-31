@@ -13,6 +13,7 @@ class Kategorija extends Model
         'naziv',
         'opis',
         'url',
+        'prezentacija_id'
     ];
 
     public function proizvodi()
