@@ -22,7 +22,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 
-Route::get('/proizvodi', [ProizvodController::class, 'index'])->name('proizvodi');
+Route::get('/listaporizvoda', [ProizvodController::class, 'index'])->name('proizvodi');
 Route::get('/proizvodi/{id}', [ProizvodController::class, 'show']);
 
 Route::post('/dodaj',[PrezentacijaController::class,'dodajPrezentaciju']);
@@ -33,3 +33,13 @@ Route::put('/prezentacija/{id}',[PrezentacijaController::class,'izmena']);
 Route::get('/kategorije', [KategorijaController::class, 'index'])->name('kategorije');
 Route::get('/kategorije/dodaj', [KategorijaController::class, 'create']);
 
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('/proizvodi', ProizvodController::class)->only(['update', 'store', 'destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

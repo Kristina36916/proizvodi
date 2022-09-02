@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Prezentacija;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\PrezentacijaResource;
+use DB;
 
 class PrezentacijaController extends Controller
 {
@@ -36,20 +37,28 @@ class PrezentacijaController extends Controller
         }
     }
     
-     public function izmena(Request $request, Prezentacija  $prezentacija)
+     public function izmena(Request $request,$id)
      {
-        $input=$request->all();
-            $validator=Validator::make($input,['naziv','mesto','vreme']);
-    
-        if($validator->fails()){
-            return 'Greska.';
-        }else{
-            $prezentacija->naziv=$request->input('naziv');
-            $prezentacija->mesto=$request->input('mesto');
-            $prezentacija->vreme=$request->input('vreme');
-            $prezentacija->save();
+         $input=$request->all();
+         $validator=Validator::make($input,['naziv','mesto','vreme']);
+         $prezentacija= new Prezentacija;
+         if($validator->fails()){
+             return response()->json($validator->erorrs());
+            }else{
+                $naziv=$request->input('naziv');
+                $mesto=$request->input('mesto');
+                $vreme=$request->input('vreme');
+               /* $prezentacija->naziv=$request->naziv;
+                $prezentacija->mesto=$request->mesto;
+                $prezentacija->vreme=$request->vreme;*/
+                DB::table('prezentacijas')
+    ->where('id', $id)
+    ->update(['naziv' => $naziv, 'mesto' => $mesto, 'vreme'=>$vreme]);
+
+               
             }
-        return $this->sendResponse(new Prezentacija($prezentacija,'Izmena prezentacije uspesna.'));
+            return response()->json(['Post is updated successfully.']);
+        
      } 
      function pretraga($naziv){
         return Prezentacija::where('naziv','Like',"%$naziv%")->get();

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProizvodResource;
 use App\Models\Proizvod;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class ProizvodController extends Controller
 {   
@@ -27,7 +29,7 @@ class ProizvodController extends Controller
      */
     public function create()
     {     
-        
+        //
     }
    
 
@@ -36,10 +38,31 @@ class ProizvodController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:255',
+            'opis' => 'required|string|max:255',
+            'cena' => 'required|string',
+            'rok' => 'required|date',
+            'kategorija_id' => 'required'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $proizvod = Proizvod::create([
+            'naziv' => $request->naziv,
+            'opis' => $request->opis,
+            'cena' => $request->cena,
+            'rok' => $request->rok,
+            'kategorija_id' => $request->kategorija_id,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return response()->json(['Proizvod je uspesno kreiran.']);
     }
 
     /**
@@ -77,6 +100,27 @@ class ProizvodController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:255',
+            'opis' => 'required|string|max:255',
+            'cena' => 'required|string',
+            'rok' => 'required|date',
+            'kategorija_id' => 'required'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+            $naziv = $request->input('naziv');
+            $opis = $request->input('opis');
+            $cena = $request->input('cena');
+            $rok = $request->input('rok');
+            $kategorija_id = $request->input('kategorija_id');
+
+            DB::table('proizvods')
+            ->where('id', $id)
+            ->update(['naziv' => $naziv, 'opis' => $opis, 'cena'=>$cena,'rok'=>$rok,'kategorija_id'=>$kategorija_id]);
+    
+            return response()->json(['Proizvod je uspesno izmenjen.']);
         
     }
 
@@ -88,6 +132,9 @@ class ProizvodController extends Controller
      */
     public function destroy($id)
     {
-      //
+        DB::delete('delete from proizvods where id = ?',[$id]);
+      return response()->json('Proizvod je uspesno obrisan!');
+        
+
     }
 }

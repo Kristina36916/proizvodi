@@ -14,7 +14,7 @@ class Proizvod extends Model
         'opis',
         'cena',
         'rok',
-
+        'kategorija_id'
 
     ];
     public function kategorija(){
