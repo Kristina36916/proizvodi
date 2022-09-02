@@ -14,7 +14,7 @@ class Proizvod extends Model
         'opis',
         'cena',
         'rok',
-        'url',
+
 
     ];
     public function kategorija(){

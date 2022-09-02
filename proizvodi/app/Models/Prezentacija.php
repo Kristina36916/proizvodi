@@ -12,7 +12,6 @@ class Prezentacija extends Model
         'naziv',
         'mesto',
         'vreme',
-        'url',
 
     ];
     public function kategorija(){

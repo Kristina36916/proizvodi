@@ -20,7 +20,6 @@ class PrezentacijaFactory extends Factory
             'naziv' => $this->faker->word(),
             'mesto' => $this->faker->word(),
             'vreme' => $this->faker->time(),
-            'url' => $this->faker->url(),
         
         ];
     }

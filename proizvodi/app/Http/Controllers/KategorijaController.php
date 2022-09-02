@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategorija;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\KategorijaResource;
 
 class KategorijaController extends Controller
 {
@@ -29,7 +31,6 @@ class KategorijaController extends Controller
     $kategorija=new Kategorija();
     $kategorija->naziv=$request->naziv;
     $kategorija->opis=$request->opis;
-    $kategorija->url=$request->url;
     $kategorija->prezentacija_id = prezentacija()->id;
     $kategorija->save();
     return redirect('/kategorije');
@@ -43,7 +44,21 @@ class KategorijaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:255',
+            'mesto' => 'required|string|max:100'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $kategorija = Kategorija::create([
+            'naziv' => $request->naziv,
+            'mesto' => $request->mesto,
+            'vreme' => $request->vreme
+        ]);
+
+        return response()->json(['Kategorija je uspesno kreirana.', new KategorijaResource($kategorija)]);
     }
 
     /**
@@ -54,7 +69,7 @@ class KategorijaController extends Controller
      */
     public function show(Kategorija $kategorija)
     {
-        
+        return new KategorijaResource($kategorija);
     }
 
     /**
@@ -77,7 +92,21 @@ class KategorijaController extends Controller
      */
     public function update(Request $request, Kategorija $kategorija)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:255',
+            'mesto' => 'required|string|max:100'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $kategorija->naziv = $request->naziv;
+        $kategorija->mesto = $request->mesto;
+        $kategorija->vreme = $request->vreme;
+
+        $kategorija->save();
+
+        return response()->json(['Kategorija je uspesno izmenjena.', new KategorijaResource($kategorija)]);
     }
 
     /**
@@ -88,6 +117,8 @@ class KategorijaController extends Controller
      */
     public function destroy(Kategorija $kategorija)
     {
-        //
+        $kategorija->delete();
+
+        return response()->json('Kategorija je uspesno obrisana.');
     }
 }

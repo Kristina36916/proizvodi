@@ -25,7 +25,7 @@ class UpdateTabelaIzmena extends Migration
      */
     public function down()
     {
-        Schema::table('izmena', function (Blueprint $table) {
+        Schema::table('tabela_izmena', function (Blueprint $table) {
             $table->renameColumn('promenaIme','ime');
         });
     }

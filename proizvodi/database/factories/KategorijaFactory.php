@@ -23,7 +23,6 @@ class KategorijaFactory extends Factory
         return [
             'naziv' => $this->faker->unique()->word(),
             'opis' => $this->faker->paragraph(),
-            'url' => $this->faker->url(),
             'prezentacija_id'=>Prezentacija::factory()->create()
         ];
     }

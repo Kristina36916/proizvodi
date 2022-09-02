@@ -18,7 +18,6 @@ class CreatePrezentacijasTable extends Migration
             $table->string('naziv');
             $table->string('mesto');
             $table->string('trajanje');
-            $table->string('url');
             $table->timestamps();
         });
     }

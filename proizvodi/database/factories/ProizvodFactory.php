@@ -24,7 +24,6 @@ class ProizvodFactory extends Factory
             'opis' => $this->faker->paragraph(),
             'cena' => $this->faker->numberBetween(100, 1000),
             'rok' => $this->faker->date(),
-            'url' => $this->faker->url(),
             'user_id'=>User::factory(),
             'kategorija_id'=>Kategorija::factory()
         ];

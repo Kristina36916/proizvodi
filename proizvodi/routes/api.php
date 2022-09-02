@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\PrezentacijaController;
 use App\Http\Controllers\ProizvodController;
-
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +17,9 @@ use App\Http\Controllers\ProizvodController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
 
 
 Route::get('/proizvodi', [ProizvodController::class, 'index'])->name('proizvodi');
@@ -29,3 +32,4 @@ Route::put('/prezentacija/{id}',[PrezentacijaController::class,'izmena']);
 
 Route::get('/kategorije', [KategorijaController::class, 'index'])->name('kategorije');
 Route::get('/kategorije/dodaj', [KategorijaController::class, 'create']);
+
