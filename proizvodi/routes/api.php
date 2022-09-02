@@ -28,3 +28,4 @@ Route::delete('/obrisi/{id}',[PrezentacijaController::class,'obrisiPrezentaciju'
 Route::put('/prezentacija/{id}',[PrezentacijaController::class,'izmena']);
 
 Route::get('/kategorije', [KategorijaController::class, 'index'])->name('kategorije');
+Route::get('/kategorije/dodaj', [KategorijaController::class, 'create']);

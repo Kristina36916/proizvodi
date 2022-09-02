@@ -14,7 +14,7 @@ class KategorijaController extends Controller
      */
     public function index()
     {
-       return Kategorije::all();
+       return Kategorija::all();
       
     }
 
@@ -23,9 +23,16 @@ class KategorijaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $this->validate($request,['naziv'=>'required']);
+    $kategorija=new Kategorija();
+    $kategorija->naziv=$request->naziv;
+    $kategorija->opis=$request->opis;
+    $kategorija->url=$request->url;
+    $kategorija->prezentacija_id = prezentacija()->id;
+    $kategorija->save();
+    return redirect('/kategorije');
     }
 
     /**
@@ -47,7 +54,7 @@ class KategorijaController extends Controller
      */
     public function show(Kategorija $kategorija)
     {
-        //
+        
     }
 
     /**
